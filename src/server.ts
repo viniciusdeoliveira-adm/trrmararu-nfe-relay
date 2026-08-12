@@ -1,6 +1,7 @@
 import cors from "cors";
 import express from "express";
 import { nfeRouter } from "./routes/nfe.js";
+import { sefazRouter } from "./routes/sefaz.js";
 
 const app = express();
 const port = Number(process.env.PORT ?? 3000);
@@ -13,12 +14,13 @@ app.get("/health", (_req, res) => {
   res.status(200).json({
     status: "ok",
     service: "TRR Mararu NF-e Relay",
-    version: "0.2.0",
+    version: "0.3.0",
     timestamp: new Date().toISOString(),
   });
 });
 
 app.use("/nfe", nfeRouter);
+app.use("/sefaz", sefazRouter);
 
 app.use((_req, res) => {
   res.status(404).json({
