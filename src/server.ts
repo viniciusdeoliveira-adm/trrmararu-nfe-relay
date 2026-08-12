@@ -1,5 +1,6 @@
 import cors from "cors";
 import express from "express";
+import { nfeRouter } from "./routes/nfe.js";
 
 const app = express();
 const port = Number(process.env.PORT ?? 3000);
@@ -12,15 +13,25 @@ app.get("/health", (_req, res) => {
   res.status(200).json({
     status: "ok",
     service: "TRR Mararu NF-e Relay",
-    version: "0.1.0",
+    version: "0.2.0",
     timestamp: new Date().toISOString(),
   });
 });
+
+app.use("/nfe", nfeRouter);
 
 app.use((_req, res) => {
   res.status(404).json({
     error: "NOT_FOUND",
     message: "Endpoint não encontrado.",
+  });
+});
+
+app.use((error: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  console.error("Unhandled relay error", error);
+  res.status(500).json({
+    error: "INTERNAL_ERROR",
+    message: "Erro interno do relay.",
   });
 });
 
