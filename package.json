@@ -1,6 +1,6 @@
 {
   "name": "trrmararu-nfe-relay",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Relay seguro para integração do TRR Mararu com serviços fiscais NF-e.",
   "main": "dist/server.js",
