@@ -1,11 +1,11 @@
-import { Router } from "express";
+import { Router, type Response } from "express";
 import { requireRelayAuth } from "../auth.js";
 
 export const nfeRouter = Router();
 
 nfeRouter.use(requireRelayAuth);
 
-function notImplemented(operation: string, res: Parameters<typeof nfeRouter.post>[1] extends never ? never : any) {
+function notImplemented(operation: string, res: Response) {
   res.status(501).json({
     error: "NOT_IMPLEMENTED",
     operation,
